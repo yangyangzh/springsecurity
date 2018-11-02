@@ -1,5 +1,7 @@
 package com.yyzhai.auth.server.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -15,12 +17,16 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 @EnableAuthorizationServer
 public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
+	
+	Logger log = LoggerFactory.getLogger(AuthServerConfig.class);
+	
 	@Autowired
 	AuthenticationManager authenticationManager;
 
 	@Override
 	public void configure(final AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
 		// 允许表单认证
+		log.info("允许表单认证");
 		oauthServer.allowFormAuthenticationForClients().checkTokenAccess("permitAll()");
 	}
 
